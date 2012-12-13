@@ -2,15 +2,6 @@ $ = jQuery
 hs = window.hubspotShare
 
 
-generate = (shareType, data) ->
-    if shareType is 'twitter'
-        c = hs.TwitterShare
-    else if shareType is 'facebook'
-        c = hs.FacebookShare
-    else return
-
-    new c(data).render()
-
 $ ->
     $('.create-code').click (evt) ->
         evt.preventDefault()
@@ -18,9 +9,10 @@ $ ->
         $button = $ @
         $form = $button.parents 'form'
         $target = $ $form.data 'output'
+        $live = $ $form.data 'test-output'
         shareType = $form.attr 'id'
 
-        valStr = $form.formSerialize()
+        valStr = decodeURIComponent $form.formSerialize()
         valArray = valStr.split '&'
 
         formVals = {}
@@ -29,19 +21,14 @@ $ ->
             formVals[vals[0]] = vals[1]
 
         if shareType is 'twitter'
-            formVals.bindOpts = {}
-            formVals.bindOpts[formVals.bindEvent] = ->
-                img = new Img()
-                img.onload ->
-                    window.location.href = formVals.redirect_url
-                img.src = formVals.bindCallback
+            c = hs.TwitterShare
 
         else if shareType is 'facebook'
-            formVals.success = ->
-                img = new Img()
-                img.onload ->
-                    window.location.href = formVals.redirect_url
-                img.src = formVals.bindCallback
+            c = hs.FacebookShare
 
-        code = generate shareType, formVals
+        shareInstance = new c formVals
+        code = shareInstance.render()
         $target.val code
+
+        # Insert code into page for a live test
+        $live.html code

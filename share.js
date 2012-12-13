@@ -50,7 +50,7 @@
     function TwitterShare(data) {
       this.data = data;
       this.ENDPOINT_BASE = "https://twitter.com/share";
-      this.bindOpts = this.data.bindOpts;
+      this.bindEvents = [this.data.bindEvent];
       this.redirect_url = this.data.redirect_url;
     }
 
@@ -84,15 +84,22 @@
     };
 
     TwitterShare.prototype._renderScript = function() {
-      return "<script type=\"text/javascript\" charset=\"utf-8\">\n    window.twttr = (function (d,s,id) {\n        var t, js, fjs = d.getElementsByTagName(s)[0];\n        if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;\n        js.src=\"http://platform.twitter.com/widgets.js\"; fjs.parentNode.insertBefore(js, fjs);\n        return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });\n    }(document, \"script\", \"twitter-wjs\"));\n    twttr.ready(function(twttr) {\n        " + (this._renderListeners()) + "\n    });\n</script>";
+      return "<script type=\"text/javascript\" charset=\"utf-8\">\n    window.twttr = (function (d,s,id) {\n        var t, js, fjs = d.getElementsByTagName(s)[0];\n        if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;\n        js.src=\"http://platform.twitter.com/widgets.js\"; fjs.parentNode.insertBefore(js, fjs);\n        return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });\n    }(document, \"script\", \"twitter-wjs\"));\n    twttr.ready(function(twttr) {\n        try {\n            " + (this._renderListeners()) + "\n        } catch (e) {\n            return\n        }\n    });\n</script>";
     };
 
     TwitterShare.prototype._renderListeners = function() {
-      var listeners;
+      var callbackFunc, eventType, listeners, redirectUrl, trackingEndpoint, _i, _len, _ref1;
       listeners = "";
-      _(this.bindOpts).each(function(callback, eventType) {
-        return listeners += "twttr.events.bind('" + eventType + "', " + (String(callback)) + ");\n";
-      });
+      _ref1 = this.bindEvents;
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        eventType = _ref1[_i];
+        redirectUrl = document.createDocumentFragment();
+        redirectUrl.textContent = this.redirect_url;
+        trackingEndpoint = document.createDocumentFragment();
+        trackingEndpoint.textContent = this.data.bindCallback;
+        callbackFunc = "function() {\n    img = new Image();\n    img.onload = function() {\n        window.location.href = '" + redirectUrl.textContent + "'\n    }\n    img.src = '" + trackingEndpoint.textContent + "'\n}";
+        listeners += "twttr.events.bind('" + eventType + "', " + callbackFunc + ");\n";
+      }
       return listeners;
     };
 
@@ -106,21 +113,16 @@
       this.data = data;
       this.ENDPOINT_BASE = 'https://www.facebook.com/dialog/send';
       this.buttonId = "hubspot-facebook-button-" + (+(new Date));
-      this.success = this.data.success;
       this.fail = this.data.fail;
       this.redirect_url = this.data.redirect_url;
     }
 
     FacebookShare.prototype.render = function() {
-      return this._renderBoilerPlate() + this._renderButton() + this._renderScript();
-    };
-
-    FacebookShare.prototype._renderBoilerPlate = function() {
-      return "<div id='fb-root'></div>";
+      return this._renderButton() + this._renderScript();
     };
 
     FacebookShare.prototype._renderButton = function() {
-      return "<a id='" + this.buttonId + "' class='btn btn-small'>Share</a>";
+      return "<div id='fb-root'></div>\n<a id='" + this.buttonId + "' class='btn btn-small'>Share</a>";
     };
 
     FacebookShare.prototype._renderScript = function() {
@@ -143,9 +145,14 @@
     };
 
     FacebookShare.prototype._renderListeners = function() {
-      var dataStr;
+      var callbackFunc, dataStr, redirectUrl, trackingEndpoint;
       dataStr = JSON.stringify(this._dataJSON());
-      return "document.getElementById(\"" + this.buttonId + "\").addEventListener('click', function(evt) {\n    FB.ui(" + dataStr + ", function(response) {\n        try {\n            if (response && response.post_id) {\n                (" + (String(this.success)) + "(response));\n            } else {\n                (" + (String(this.fail)) + "(response));\n            }\n        } catch (e) {\n            return\n        }\n    });\n}, false);";
+      redirectUrl = document.createDocumentFragment();
+      redirectUrl.textContent = this.redirect_url;
+      trackingEndpoint = document.createDocumentFragment();
+      trackingEndpoint.textContent = this.data.bindCallback;
+      callbackFunc = "function() {\n    img = new Image();\n    img.onload = function() {\n        window.location.href = '" + redirectUrl.textContent + "'\n    }\n    img.src = '" + trackingEndpoint.textContent + "'\n}";
+      return "document.getElementById(\"" + this.buttonId + "\").addEventListener('click', function(evt) {\n    FB.ui(" + dataStr + ", function(response) {\n        try {\n            if (response && response.post_id) {\n                (" + callbackFunc + ")(response);\n            } else {\n                (" + (String(this.fail)) + ")(response);\n            }\n        } catch (e) {\n            return\n        }\n    });\n}, false);";
     };
 
     FacebookShare.prototype._dataJSON = function() {
@@ -166,9 +173,5 @@
     return FacebookShare;
 
   })();
-
-  hs.t = new hs.TwitterShare(hs.TWITTER_MOCK).render();
-
-  hs.f = new hs.FacebookShare(hs.FACEBOOK_MOCK).render();
 
 }).call(this);
