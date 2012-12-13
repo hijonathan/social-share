@@ -1,62 +1,214 @@
+<!DOCTYPE html>
 <html>
-<head></head>
+<head>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+</head>
 <body>
+<div class="container-fluid">
 
-    <h1>Yay</h1>
-<a href="https://twitter.com/share" class='twitter-share-button' data-text="All+the+resources+you+need+to+keep+your+marketing+passion+satiated.+Download+the+Marketer's+Survival+Kit" data-url="http%3A%2F%2Fbit.ly%2FUb6gz1" data-via="HubSpot" data-related="HubSpot" data-lang="en" data-size="large" data-count="none" >Tweet</a><script type="text/javascript" charset="utf-8">
-    window.twttr = (function (d,s,id) {
-        var t, js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
-        js.src="http://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-        return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
-    }(document, "script", "twitter-wjs"));
-    twttr.ready(function(twttr) {
-        twttr.events.bind('tweet', function (evt) {
-        return alert('you tweeted');
-      });
-twttr.events.bind('retweet', function (evt) {
-        return alert('you retweeted');
-      });
-twttr.events.bind('follow', function (evt) {
-        return alert('you followed');
-      });
-twttr.events.bind('favorite', function (evt) {
-        return alert('you favorited');
-      });
-twttr.events.bind('click', function (evt) {
-        return alert('you clicked');
-      });
+    <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <h3 class="muted">Project name</h3>
+    </div>
 
-    });
-</script>
-<div id='fb-root'></div><a id='hubspot-facebook-button-1355378522896'>Share</a><script>
-    window.fbAsyncInit = function() {
-        FB.init({"appId":"158578010837062","status":true,"cookie":true,"xfbml":true});
-        document.getElementById("hubspot-facebook-button-1355378522896").addEventListener('click', function(evt) {
-    FB.ui({'method': 'feed',"name":"People Argue Just to Win","caption":"Bringing Facebook to the desktop and mobile web","description":"A small JavaScript library that allows you to harness the power of Facebook, bringing the user's identity, social graph and distribution power to your site.","link":"http://bit.ly/Ub6gz1","picture":"http://www.fbrell.com/public/f8.jpg"}, function(response) {
-        if (response && response.post_id) {
-            (function (response) {
-      return alert('you did it!');
-    }(response))
-        } else {
-            (function (response) {
-      return alert('you suck');
-    }(response))
-        }
-    });
-}, false);
-    };
-    (function(d, debug){
-    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement('script'); js.id = id; js.async = true;
-    js.src = "http://connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
-    ref.parentNode.insertBefore(js, ref);
-}(document, /*debug*/ false));
-</script>
+    <hr>
+
+    <div class="jumbotron" style="margin-bottom: 40px">
+        <h1>Super awesome marketing speak!</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+
+        <a href="https://twitter.com/share" class='twitter-share-button' data-text="All+the+resources+you+need+to+keep+your+marketing+passion+satiated.+Download+the+Marketer's+Survival+Kit" data-url="http%3A%2F%2Fbit.ly%2FUb6gz1" data-via="HubSpot" data-related="HubSpot" data-lang="en" data-size="large" data-count="none" >Tweet</a>
+        <script type="text/javascript" charset="utf-8">
+            window.twttr = (function (d,s,id) {
+                var t, js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+                js.src="http://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+                return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+            }(document, "script", "twitter-wjs"));
+            twttr.ready(function(twttr) {
+                twttr.events.bind('tweet', function (evt) {
+                return alert('you tweeted');
+              });
+        twttr.events.bind('retweet', function (evt) {
+                return alert('you retweeted');
+              });
+        twttr.events.bind('follow', function (evt) {
+                return alert('you followed');
+              });
+        twttr.events.bind('favorite', function (evt) {
+                return alert('you favorited');
+              });
+        twttr.events.bind('click', function (evt) {
+                return alert('you clicked');
+              });
+
+            });
+        </script>
+        <div id='fb-root'></div><a id='hubspot-facebook-button-1355378522896'>Share</a><script>
+            window.fbAsyncInit = function() {
+                FB.init({"appId":"158578010837062","status":true,"cookie":true,"xfbml":true});
+                document.getElementById("hubspot-facebook-button-1355378522896").addEventListener('click', function(evt) {
+            FB.ui({'method': 'feed',"name":"People Argue Just to Win","caption":"Bringing Facebook to the desktop and mobile web","description":"A small JavaScript library that allows you to harness the power of Facebook, bringing the user's identity, social graph and distribution power to your site.","link":"http://bit.ly/Ub6gz1","picture":"http://www.fbrell.com/public/f8.jpg"}, function(response) {
+                if (response && response.post_id) {
+                    (function (response) {
+              return alert('you did it!');
+            }(response))
+                } else {
+                    (function (response) {
+              return alert('you suck');
+            }(response))
+                }
+            });
+        }, false);
+            };
+            (function(d, debug){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "http://connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document, /*debug*/ false));
+        </script>
+
+    </div>
+
+    <div class="row-fluid">
+        <h4>Twitter Share Tracking</h4>
+        <hr>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span6">
+
+            <form class="form-horizontal" id='twitter' data-output='#twitter-output'>
+                <div class="control-group">
+                    <label class="control-label">Username</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='via' placeholder="HubSpot">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Message</label>
+                    <div class="controls">
+                        <textarea class='span12' name='text' placeholder="My favorite 140-character message" rows='3'></textarea>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">URL</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='url' placeholder="http://www.hubspot.com/">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Event to Track</label>
+                    <div class="controls">
+                        <select name='bindEvent' class='span12'>
+                            <option value='tweet'>Tweet</option>
+                            <option value='retweet'>Retweet</option>
+                            <option value='favorite'>Favorite</option>
+                            <option value='follow'>Follow</option>
+                            <option value='click'>Click</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Event Endpoint</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='bindCallback' placeholder="http://analytics.performable.com/v1/event?_n=EVENT_ID&_a=8LuYZb">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn create-code">Create Code</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="span6">
+            <textarea id='twitter-output' rows='15' class='span12'></textarea>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <h4>Facebook Share Tracking</h4>
+        <hr>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span6">
+
+            <form class="form-horizontal" id='facebook' data-output='#facebook-output'>
+                <div class="control-group">
+                    <label class="control-label">Title</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='title' placeholder="HubSpot">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Caption</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='caption' placeholder="HubSpot">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Caption</label>
+                    <div class="controls">
+                        <textarea class='span12' name='description' placeholder="My favorite 140-character message" rows='3'></textarea>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">URL</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='link' placeholder="http://www.hubspot.com/">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Picture URL</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='picture' placeholder="http://www.hubspot.com/">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Event Endpoint</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='bindCallback' placeholder="http://analytics.performable.com/v1/event?_n=EVENT_ID&_a=8LuYZb">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn create-code">Create Code</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="span6">
+            <textarea id='facebook-output' rows='15' class='span12'></textarea>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="footer">
+        <p>© Company 2012</p>
+    </div>
+
+</div>
 
     <script type="text/javascript" src="underscore-min.js"></script>
-    <script type="text/javascript" src="twitter.js"></script>
+    <script type="text/javascript" src="share.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.form.js"></script>
+    <script type="text/javascript" src="generator.js"></script>
 
 </body>
 </html>

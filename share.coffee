@@ -135,10 +135,14 @@ class hs.FacebookShare
         """
         document.getElementById("#{@buttonId}").addEventListener('click', function(evt) {
             FB.ui(#{dataStr}, function(response) {
-                if (response && response.post_id) {
-                    (#{String(@success)}(response));
-                } else {
-                    (#{String(@fail)}(response));
+                try {
+                    if (response && response.post_id) {
+                        (#{String(@success)}(response));
+                    } else {
+                        (#{String(@fail)}(response));
+                    }
+                } catch (e) {
+                    return
                 }
             });
         }, false);

@@ -141,7 +141,7 @@
     FacebookShare.prototype._renderListeners = function() {
       var dataStr;
       dataStr = JSON.stringify(this._dataJSON());
-      return "document.getElementById(\"" + this.buttonId + "\").addEventListener('click', function(evt) {\n    FB.ui(" + dataStr + ", function(response) {\n        if (response && response.post_id) {\n            (" + (String(this.success)) + "(response));\n        } else {\n            (" + (String(this.fail)) + "(response));\n        }\n    });\n}, false);";
+      return "document.getElementById(\"" + this.buttonId + "\").addEventListener('click', function(evt) {\n    FB.ui(" + dataStr + ", function(response) {\n        try {\n            if (response && response.post_id) {\n                (" + (String(this.success)) + "(response));\n            } else {\n                (" + (String(this.fail)) + "(response));\n            }\n        } catch (e) {\n            return\n        }\n    });\n}, false);";
     };
 
     FacebookShare.prototype._dataJSON = function() {
