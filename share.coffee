@@ -16,6 +16,7 @@ hs.TWITTER_MOCK =
             alert 'you favorited'
         click: (evt) ->
             alert 'you clicked'
+    redirect_url: 'http://jonathan-kim.com/'
 
 
 hs.FACEBOOK_MOCK =
@@ -29,6 +30,7 @@ hs.FACEBOOK_MOCK =
         alert 'you did it!'
     fail: (response) ->
         alert 'you suck'
+    redirect_url: 'http://jonathan-kim.com/'
 
 
 class hs.TwitterShare
@@ -36,6 +38,7 @@ class hs.TwitterShare
     constructor: (@data) ->
         @ENDPOINT_BASE = "https://twitter.com/share"
         @bindOpts = @data.bindOpts
+        @redirect_url = @data.redirect_url
 
     render: ->
         @_renderButton() + @_renderScript()
@@ -94,6 +97,7 @@ class hs.FacebookShare
         @buttonId = "hubspot-facebook-button-#{+new Date}"
         @success = @data.success
         @fail = @data.fail
+        @redirect_url = @data.redirect_url
 
     render: ->
         @_renderBoilerPlate() +
@@ -105,7 +109,7 @@ class hs.FacebookShare
         "<div id='fb-root'></div>"
 
     _renderButton: ->
-        "<a id='#{@buttonId}'>Share</a>"
+        "<a id='#{@buttonId}' class='btn btn-small'>Share</a>"
 
     _renderScript: ->
         """
@@ -135,10 +139,14 @@ class hs.FacebookShare
         """
         document.getElementById("#{@buttonId}").addEventListener('click', function(evt) {
             FB.ui(#{dataStr}, function(response) {
-                if (response && response.post_id) {
-                    (#{String(@success)}(response));
-                } else {
-                    (#{String(@fail)}(response));
+                try {
+                    if (response && response.post_id) {
+                        (#{String(@success)}(response));
+                    } else {
+                        (#{String(@fail)}(response));
+                    }
+                } catch (e) {
+                    return
                 }
             });
         }, false);
