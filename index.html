@@ -1,0 +1,62 @@
+<html>
+<head></head>
+<body>
+
+    <h1>Yay</h1>
+<a href="https://twitter.com/share" class='twitter-share-button' data-text="All+the+resources+you+need+to+keep+your+marketing+passion+satiated.+Download+the+Marketer's+Survival+Kit" data-url="http%3A%2F%2Fbit.ly%2FUb6gz1" data-via="HubSpot" data-related="HubSpot" data-lang="en" data-size="large" data-count="none" >Tweet</a><script type="text/javascript" charset="utf-8">
+    window.twttr = (function (d,s,id) {
+        var t, js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+        js.src="http://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+        return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+    }(document, "script", "twitter-wjs"));
+    twttr.ready(function(twttr) {
+        twttr.events.bind('tweet', function (evt) {
+        return alert('you tweeted');
+      });
+twttr.events.bind('retweet', function (evt) {
+        return alert('you retweeted');
+      });
+twttr.events.bind('follow', function (evt) {
+        return alert('you followed');
+      });
+twttr.events.bind('favorite', function (evt) {
+        return alert('you favorited');
+      });
+twttr.events.bind('click', function (evt) {
+        return alert('you clicked');
+      });
+
+    });
+</script>
+<div id='fb-root'></div><a id='hubspot-facebook-button-1355378522896'>Share</a><script>
+    window.fbAsyncInit = function() {
+        FB.init({"appId":"158578010837062","status":true,"cookie":true,"xfbml":true});
+        document.getElementById("hubspot-facebook-button-1355378522896").addEventListener('click', function(evt) {
+    FB.ui({'method': 'feed',"name":"People Argue Just to Win","caption":"Bringing Facebook to the desktop and mobile web","description":"A small JavaScript library that allows you to harness the power of Facebook, bringing the user's identity, social graph and distribution power to your site.","link":"http://bit.ly/Ub6gz1","picture":"http://www.fbrell.com/public/f8.jpg"}, function(response) {
+        if (response && response.post_id) {
+            (function (response) {
+      return alert('you did it!');
+    }(response))
+        } else {
+            (function (response) {
+      return alert('you suck');
+    }(response))
+        }
+    });
+}, false);
+    };
+    (function(d, debug){
+    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "http://connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+    ref.parentNode.insertBefore(js, ref);
+}(document, /*debug*/ false));
+</script>
+
+    <script type="text/javascript" src="underscore-min.js"></script>
+    <script type="text/javascript" src="twitter.js"></script>
+
+</body>
+</html>
