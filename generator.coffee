@@ -31,11 +31,17 @@ $ ->
         if shareType is 'twitter'
             formVals.bindOpts = {}
             formVals.bindOpts[formVals.bindEvent] = ->
-                (new Img()).src = formVals.bindCallback
+                img = new Img()
+                img.onload ->
+                    window.location.href = formVals.redirect_url
+                img.src = formVals.bindCallback
 
         else if shareType is 'facebook'
             formVals.success = ->
-                (new Img()).src = formVals.bindCallback
+                img = new Img()
+                img.onload ->
+                    window.location.href = formVals.redirect_url
+                img.src = formVals.bindCallback
 
         code = generate shareType, formVals
         $target.val code

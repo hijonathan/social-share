@@ -7,12 +7,7 @@
 <div class="container-fluid">
 
     <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="muted">Project name</h3>
+        <h3 class="muted">Social Sharing <small>Trackable social share buttons</small></h3>
     </div>
 
     <hr>
@@ -48,7 +43,11 @@
 
             });
         </script>
-        <div id='fb-root'></div><a id='hubspot-facebook-button-1355378522896'>Share</a><script>
+
+        <p>or</p>
+
+        <div id='fb-root'></div>
+        <a id='hubspot-facebook-button-1355378522896' class='btn btn-small' style='font-weight: bold'>Share to Facebook</a><script>
             window.fbAsyncInit = function() {
                 FB.init({"appId":"158578010837062","status":true,"cookie":true,"xfbml":true});
                 document.getElementById("hubspot-facebook-button-1355378522896").addEventListener('click', function(evt) {
@@ -123,6 +122,13 @@
                 </div>
 
                 <div class="control-group">
+                    <label class="control-label">Redirect URL</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='redirect_url' placeholder="http://analytics.performable.com/v1/event?_n=EVENT_ID&_a=8LuYZb">
+                    </div>
+                </div>
+
+                <div class="control-group">
                     <div class="controls">
                         <button type="submit" class="btn create-code">Create Code</button>
                     </div>
@@ -183,6 +189,13 @@
                 </div>
 
                 <div class="control-group">
+                    <label class="control-label">Redirect URL</label>
+                    <div class="controls">
+                        <input class='span12' type="text" name='redirect_url' placeholder="http://analytics.performable.com/v1/event?_n=EVENT_ID&_a=8LuYZb">
+                    </div>
+                </div>
+
+                <div class="control-group">
                     <div class="controls">
                         <button type="submit" class="btn create-code">Create Code</button>
                     </div>
@@ -199,7 +212,7 @@
     <hr>
 
     <div class="footer">
-        <p>© Company 2012</p>
+        <p>&copy; HubSpot Social Media</p>
     </div>
 
 </div>

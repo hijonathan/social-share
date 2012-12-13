@@ -37,11 +37,21 @@
       if (shareType === 'twitter') {
         formVals.bindOpts = {};
         formVals.bindOpts[formVals.bindEvent] = function() {
-          return (new Img()).src = formVals.bindCallback;
+          var img;
+          img = new Img();
+          img.onload(function() {
+            return window.location.href = formVals.redirect_url;
+          });
+          return img.src = formVals.bindCallback;
         };
       } else if (shareType === 'facebook') {
         formVals.success = function() {
-          return (new Img()).src = formVals.bindCallback;
+          var img;
+          img = new Img();
+          img.onload(function() {
+            return window.location.href = formVals.redirect_url;
+          });
+          return img.src = formVals.bindCallback;
         };
       }
       code = generate(shareType, formVals);

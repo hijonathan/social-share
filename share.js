@@ -25,7 +25,8 @@
       click: function(evt) {
         return alert('you clicked');
       }
-    }
+    },
+    redirect_url: 'http://jonathan-kim.com/'
   };
 
   hs.FACEBOOK_MOCK = {
@@ -40,7 +41,8 @@
     },
     fail: function(response) {
       return alert('you suck');
-    }
+    },
+    redirect_url: 'http://jonathan-kim.com/'
   };
 
   hs.TwitterShare = (function() {
@@ -49,6 +51,7 @@
       this.data = data;
       this.ENDPOINT_BASE = "https://twitter.com/share";
       this.bindOpts = this.data.bindOpts;
+      this.redirect_url = this.data.redirect_url;
     }
 
     TwitterShare.prototype.render = function() {
@@ -105,6 +108,7 @@
       this.buttonId = "hubspot-facebook-button-" + (+(new Date));
       this.success = this.data.success;
       this.fail = this.data.fail;
+      this.redirect_url = this.data.redirect_url;
     }
 
     FacebookShare.prototype.render = function() {
@@ -116,7 +120,7 @@
     };
 
     FacebookShare.prototype._renderButton = function() {
-      return "<a id='" + this.buttonId + "'>Share</a>";
+      return "<a id='" + this.buttonId + "' class='btn btn-small'>Share</a>";
     };
 
     FacebookShare.prototype._renderScript = function() {
