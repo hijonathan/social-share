@@ -37,7 +37,7 @@ class hs.TwitterShare
 
     constructor: (@data) ->
         @ENDPOINT_BASE = "https://twitter.com/share"
-        @bindOpts = @data.bindOpts
+        @bindEvents = [@data.bindEvent]
         @redirect_url = @data.redirect_url
 
     render: ->
@@ -78,15 +78,34 @@ class hs.TwitterShare
                 return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
             }(document, "script", "twitter-wjs"));
             twttr.ready(function(twttr) {
-                #{@_renderListeners()}
+                try {
+                    #{@_renderListeners()}
+                } catch (e) {
+                    return
+                }
             });
         </script>
         """
 
     _renderListeners: ->
         listeners = ""
-        _(@bindOpts).each (callback, eventType) ->
-            listeners += "twttr.events.bind('#{eventType}', #{String(callback)});\n"
+        for eventType in @bindEvents
+            redirectUrl = document.createDocumentFragment()
+            redirectUrl.textContent = @redirect_url
+            trackingEndpoint = document.createDocumentFragment()
+            trackingEndpoint.textContent = @data.bindCallback
+
+            callbackFunc = """
+                function() {
+                    img = new Image();
+                    img.onload = function() {
+                        window.location.href = '#{redirectUrl.textContent}'
+                    }
+                    img.src = '#{trackingEndpoint.textContent}'
+                }
+            """
+
+            listeners += "twttr.events.bind('#{eventType}', #{callbackFunc});\n"
 
         listeners
 
@@ -95,21 +114,19 @@ class hs.FacebookShare
     constructor: (@data) ->
         @ENDPOINT_BASE = 'https://www.facebook.com/dialog/send'
         @buttonId = "hubspot-facebook-button-#{+new Date}"
-        @success = @data.success
+
         @fail = @data.fail
         @redirect_url = @data.redirect_url
 
     render: ->
-        @_renderBoilerPlate() +
-        @_renderButton() +
-        @_renderScript()
-
-    _renderBoilerPlate: ->
-        # Required in order to use the JS SDK
-        "<div id='fb-root'></div>"
+        @_renderButton() + @_renderScript()
 
     _renderButton: ->
-        "<a id='#{@buttonId}' class='btn btn-small'>Share</a>"
+        # Required in order to use the JS SDK
+        """
+        <div id='fb-root'></div>
+        <a id='#{@buttonId}' class='btn btn-small'>Share</a>
+        """
 
     _renderScript: ->
         """
@@ -136,14 +153,29 @@ class hs.FacebookShare
 
     _renderListeners: ->
         dataStr = JSON.stringify @_dataJSON()
+        redirectUrl = document.createDocumentFragment()
+        redirectUrl.textContent = @redirect_url
+        trackingEndpoint = document.createDocumentFragment()
+        trackingEndpoint.textContent = @data.bindCallback
+
+        callbackFunc = """
+            function() {
+                img = new Image();
+                img.onload = function() {
+                    window.location.href = '#{redirectUrl.textContent}'
+                }
+                img.src = '#{trackingEndpoint.textContent}'
+            }
+        """
+
         """
         document.getElementById("#{@buttonId}").addEventListener('click', function(evt) {
             FB.ui(#{dataStr}, function(response) {
                 try {
                     if (response && response.post_id) {
-                        (#{String(@success)}(response));
+                        (#{callbackFunc})(response);
                     } else {
-                        (#{String(@fail)}(response));
+                        (#{String(@fail)})(response);
                     }
                 } catch (e) {
                     return
@@ -171,5 +203,5 @@ class hs.FacebookShare
         }(document, /*debug*/ false));
         """
 
-hs.t = new hs.TwitterShare(hs.TWITTER_MOCK).render()
-hs.f = new hs.FacebookShare(hs.FACEBOOK_MOCK).render()
+# hs.t = new hs.TwitterShare(hs.TWITTER_MOCK).render()
+# hs.f = new hs.FacebookShare(hs.FACEBOOK_MOCK).render()
